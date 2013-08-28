@@ -1,0 +1,114 @@
+<project name="AESStorageExport" default="start.complete">
+
+  <!-- 
+    ***************************************************************** 
+  	* information   
+  	***************************************************************** 
+  	-->
+
+  <description>AES Storage export</description>
+
+  <!-- 
+  	***************************************************************** 
+  	* global properties   
+  	***************************************************************** 
+  	-->
+
+  <property name="jar.name" value="aesstorageexport.jar" />
+
+  <!-- 
+  	***************************************************************** 
+  	* general properties   
+  	***************************************************************** 
+  	-->
+
+  <property name="build" location="${basedir}/build" />
+  <property name="buildnumber" location="${build}/buildnumber" />
+  <property name="temp" location="${build}/temp" />
+
+  <property name="src" location="${basedir}/src" />
+  <property name="libs" location="${basedir}/libs" />
+  <property name="classes" location="${temp}/classes" />
+
+  <property name="install" location="${build}/install" />
+
+  <!-- 
+  	***************************************************************** 
+  	* logging   
+  	***************************************************************** 
+  	-->
+
+  <record name="${build}/build.log" />
+
+  <!-- 
+  	***************************************************************** 
+  	* INTERNAL TASKS   
+  	***************************************************************** 
+  	-->
+
+  <!-- 
+	* cleanup tasks 
+	-->
+
+  <target name="clean.start">
+    <delete dir="${temp}" />
+    <delete dir="${install}" />
+  </target>
+
+  <target name="clean.stop">
+    <delete dir="${temp}" />
+  </target>
+
+  <!-- 
+	* compile, build tasks 
+	-->
+
+  <target name="build">
+
+    <delete dir="${classes}" />
+    <mkdir dir="${classes}" />
+
+    <!-- compile the java code -->
+    <javac srcdir="${src}" destdir="${classes}" debug="on" deprecation="on" source="1.5" target="1.5">
+      <classpath>
+        <fileset dir="${libs}">
+          <include name="*.jar" />
+        </fileset>
+      </classpath>
+    </javac>
+
+    <!-- copy ressource files -->
+    <copy todir="${classes}">
+      <fileset dir="${src}">
+        <include name="**/*" />
+        <exclude name="**/*.java" />
+        <exclude name="**/package.html" />
+      </fileset>
+    </copy>
+
+    <mkdir dir="${install}" />
+
+	<!-- buildnumber -->
+    <taskdef name="buildnr" classname="com.sibvisions.addons.ant.AntBuildNumber" classpath="${buildnumber}/addons.jar" />
+    <buildnr buildfile="${buildnumber}/buildnr.properties" version="1.0" name="AES Storage Export"/> 
+    
+    <!-- create the jar file -->
+    <jar jarfile="${install}/${jar.name}" basedir="${classes}" includes="net/**" >
+	  <manifest>
+        <attribute name="Implementation-Title" value="${build.versionstring}"/>
+        <attribute name="Implementation-Version" value="b${build.number} ${build.date}"/> 
+        <attribute name="Implementation-Vendor" value="SIB Visions GmbH"/>
+      </manifest>
+    </jar>
+
+  </target>
+  
+  <!-- 
+  	***************************************************************** 
+  	* PUBLIC START TASKS   
+  	***************************************************************** 
+  	-->
+
+  <target name="start.complete" depends="clean.start, build, clean.stop" />
+
+</project>
