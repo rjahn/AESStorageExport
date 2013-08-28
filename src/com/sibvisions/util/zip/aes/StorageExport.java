@@ -147,11 +147,15 @@ public class StorageExport
 		ZipParameters parameters = new ZipParameters();
 		parameters.setCompressionMethod(Zip4jConstants.COMP_DEFLATE);
 		parameters.setCompressionLevel(Zip4jConstants.DEFLATE_LEVEL_NORMAL);
-		parameters.setEncryptFiles(true);
-		parameters.setEncryptionMethod(Zip4jConstants.ENC_METHOD_AES);
-		parameters.setAesKeyStrength(Zip4jConstants.AES_STRENGTH_256);
-		parameters.setPassword(sPassword);
-
+		
+		if (sPassword != null)
+		{
+			parameters.setEncryptFiles(true);
+			parameters.setEncryptionMethod(Zip4jConstants.ENC_METHOD_AES);
+			parameters.setAesKeyStrength(Zip4jConstants.AES_STRENGTH_256);
+			parameters.setPassword(sPassword);
+		}
+		
 		ZipOutputStream zos = new ZipOutputStream(pStream);
 
 		try
