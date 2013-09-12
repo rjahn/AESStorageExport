@@ -175,6 +175,7 @@ public class StorageExportTest
 		
 		StorageEntry entryColumns = new StorageEntry("columns.csv", createStorage(), condFilter);
 		entryColumns.setColumnNames("ID", "VALUE");
+		entryColumns.setShowColumnNames(true);
 		
 		StorageEntry entryColumnsStorage = new StorageEntry("columns_storage.csv", createStorage(), condFilter);
 		entryColumnsStorage.setColumnNames(createColumnStorage(), "NAME");

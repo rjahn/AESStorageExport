@@ -221,6 +221,21 @@ public class StorageExport
 				
 				oswStream = new OutputStreamWriter(baos, "UTF-8");
 				
+				if (entry.isShowColumnNames())
+				{
+					for (int i = 0; i < sEntryColumnNames.length; i++)
+					{
+						if (i > 0)
+						{
+							oswStream.write(sSeparator);
+						}
+						
+						oswStream.write(ColumnMetaData.getDefaultLabel(sEntryColumnNames[i]));
+					}
+
+					oswStream.write("\n");
+				}
+				
 				while (!bAllFetched)
 				{
 					lResult = storage.fetch(entry.getCondition(), null, iStart, 1000);

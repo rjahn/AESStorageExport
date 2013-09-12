@@ -22,6 +22,7 @@ package com.sibvisions.util.zip.aes;
 
 import java.util.List;
 
+import javax.rad.model.SortDefinition;
 import javax.rad.model.condition.ICondition;
 import javax.rad.persist.DataSourceException;
 import javax.rad.type.bean.IBean;
@@ -53,6 +54,9 @@ public class StorageEntry
 	/** the columns to use. */
 	private String[] saColumns;
 
+	/** whether to show column names as first record. */
+	private boolean bShowColumnNames = false;
+	
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Initialization
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -125,13 +129,36 @@ public class StorageEntry
 	 */
 	public void setColumnNames(AbstractStorage pStorage, String pColumName) throws DataSourceException
 	{
-		List<IBean> liBeans = pStorage.fetchBean(null, null, 0, -1);
-		
+		setColumnNames(pStorage.fetchBean(null, null, 0, -1), pColumName);
+	}
+	
+	/**
+	 * Sets the column names fetched via storage.
+	 * 
+	 * @param pStorage the storage that contains column names
+	 * @param pCondition the fetch condition
+	 * @param pSort the sort definition
+	 * @param pColumName the column that contains the column name
+	 * @throws DataSourceException if fetching data fails
+	 */
+	public void setColumnNames(AbstractStorage pStorage, ICondition pCondition, SortDefinition pSort, String pColumName) throws DataSourceException
+	{
+		setColumnNames(pStorage.fetchBean(pCondition, pSort, 0, -1), pColumName);
+	}
+	
+	/**
+	 * Sets the column names.
+	 * 
+	 * @param pBeans the column names
+	 * @param pColumName the column that contains the column name
+	 */
+	public void setColumnNames(List<IBean> pBeans, String pColumName)
+	{	
 		ArrayUtil<String> auColumns = new ArrayUtil<String>();
 		
 		String sValue;
 		
-		for (IBean bean : liBeans)
+		for (IBean bean : pBeans)
 		{
 			sValue = (String)bean.get(pColumName);
 			
@@ -167,6 +194,26 @@ public class StorageEntry
 	public ICondition getCondition()
 	{
 		return condFilter;
+	}
+
+	/**
+	 * Sets whether column names should be shown as first record.
+	 * 
+	 * @param pShow <code>true</code> to show column names
+	 */
+	public void setShowColumnNames(boolean pShow)
+	{
+		bShowColumnNames = pShow;
+	}
+	
+	/**
+	 * Gets whether column names should be shown as first record.
+	 * 
+	 * @return <code>true</code> if column names should be shown
+	 */
+	public boolean isShowColumnNames()
+	{
+		return bShowColumnNames;
 	}
 	
 }	// StorageEntry
