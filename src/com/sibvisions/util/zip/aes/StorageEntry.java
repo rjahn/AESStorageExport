@@ -17,6 +17,7 @@
  * History
  *
  * 27.08.2013 - [JR] - creation
+ * 12.09.2013 - [JR] - setColumnNames with condition and sort
  */
 package com.sibvisions.util.zip.aes;
 
@@ -120,6 +121,24 @@ public class StorageEntry
 		saColumns = pColumnNames;
 	}
 
+	/**
+	 * Sets the column names which should be used for retrieving data from the storage.
+	 * 
+	 * @param pColumnNames the column names
+	 */
+	public void setColumnNames(List<String> pColumnNames)
+	{
+		if (pColumnNames != null && !pColumnNames.isEmpty())
+		{
+			saColumns = new String[pColumnNames.size()];
+			pColumnNames.toArray(saColumns);
+		}
+		else
+		{
+			saColumns = null;
+		}
+	}
+	
 	/**
 	 * Sets the column names fetched via storage.
 	 * 
