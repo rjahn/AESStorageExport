@@ -18,6 +18,7 @@
  *
  * 27.08.2013 - [JR] - creation
  * 12.09.2013 - [JR] - setColumnNames with condition and sort
+ *                   - sort definition for entry
  */
 package com.sibvisions.util.zip.aes;
 
@@ -51,6 +52,9 @@ public class StorageEntry
 
 	/** the filter condition. */
 	private ICondition condFilter;
+
+	/** the sort definition. */
+	private SortDefinition sort;
 	
 	/** the columns to use. */
 	private String[] saColumns;
@@ -70,7 +74,7 @@ public class StorageEntry
 	 */
 	public StorageEntry(String pName, AbstractStorage pStorage)
 	{
-		this(pName, pStorage, null);
+		this(pName, pStorage, null, null);
 	}
 
 	/**
@@ -82,9 +86,23 @@ public class StorageEntry
 	 */
 	public StorageEntry(String pName, AbstractStorage pStorage, ICondition pFilter)
 	{
+		this(pName, pStorage, pFilter, null);
+	}
+
+	/**
+	 * Creates a new <code>StorageEntry</code>.
+	 * 
+	 * @param pName the entry name
+	 * @param pStorage the data store
+	 * @param pFilter the filter condition
+	 * @param pSort the sort definition
+	 */
+	public StorageEntry(String pName, AbstractStorage pStorage, ICondition pFilter, SortDefinition pSort)
+	{
 		name = pName;
 		storage = pStorage;
 		condFilter = pFilter;
+		sort = pSort;
 	}
 	
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -148,7 +166,7 @@ public class StorageEntry
 	 */
 	public void setColumnNames(AbstractStorage pStorage, String pColumName) throws DataSourceException
 	{
-		setColumnNames(pStorage.fetchBean(null, null, 0, -1), pColumName);
+		setColumnNames(pStorage, pColumName, null, null);
 	}
 	
 	/**
@@ -160,19 +178,10 @@ public class StorageEntry
 	 * @param pColumName the column that contains the column name
 	 * @throws DataSourceException if fetching data fails
 	 */
-	public void setColumnNames(AbstractStorage pStorage, ICondition pCondition, SortDefinition pSort, String pColumName) throws DataSourceException
+	public void setColumnNames(AbstractStorage pStorage, String pColumName, ICondition pCondition, SortDefinition pSort) throws DataSourceException
 	{
-		setColumnNames(pStorage.fetchBean(pCondition, pSort, 0, -1), pColumName);
-	}
-	
-	/**
-	 * Sets the column names.
-	 * 
-	 * @param pBeans the column names
-	 * @param pColumName the column that contains the column name
-	 */
-	public void setColumnNames(List<IBean> pBeans, String pColumName)
-	{	
+		List<IBean> pBeans = pStorage.fetchBean(pCondition, pSort, 0, -1); 
+				
 		ArrayUtil<String> auColumns = new ArrayUtil<String>();
 		
 		String sValue;
@@ -213,6 +222,16 @@ public class StorageEntry
 	public ICondition getCondition()
 	{
 		return condFilter;
+	}
+	
+	/**
+	 * Gets the sort definition.
+	 * 
+	 * @return the sort definition
+	 */
+	public SortDefinition getSortDefinition()
+	{
+		return sort;
 	}
 
 	/**

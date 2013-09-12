@@ -17,6 +17,7 @@
  * History
  *
  * 27.08.2013 - [JR] - creation
+ * 12.09.2013 - [JR] - use sort of entry
  */
 package com.sibvisions.util.zip.aes;
 
@@ -238,7 +239,7 @@ public class StorageExport
 				
 				while (!bAllFetched)
 				{
-					lResult = storage.fetch(entry.getCondition(), null, iStart, 1000);
+					lResult = storage.fetch(entry.getCondition(), entry.getSortDefinition(), iStart, 1000);
 					
 					//continue fetching
 					iStart += lResult.size();
