@@ -93,7 +93,7 @@
     <buildnr buildfile="${buildnumber}/buildnr.properties" version="1.0" name="AES Storage Export"/> 
     
     <!-- create the jar file -->
-    <jar jarfile="${install}/${jar.name}" basedir="${classes}" includes="net/**" >
+    <jar jarfile="${install}/${jar.name}" basedir="${classes}">
 	  <manifest>
         <attribute name="Implementation-Title" value="${build.versionstring}"/>
         <attribute name="Implementation-Version" value="b${build.number} ${build.date}"/> 
