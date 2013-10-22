@@ -284,7 +284,10 @@ public class StorageExport
 									oswStream.write(sSeparator);
 								}
 								
-								DataBookUtil.writeQuoted(oswStream, dataType[j], oData[iColumnNameIndex[j]], sSeparator);
+								if (iColumnNameIndex[j] >= 0)
+								{
+									DataBookUtil.writeQuoted(oswStream, dataType[j], oData[iColumnNameIndex[j]], sSeparator);
+								}
 							}		
 							
 							oswStream.write("\n");

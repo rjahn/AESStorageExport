@@ -254,7 +254,7 @@ public class StorageEntry
 	 */
 	public void setColumnLabels(AbstractStorage pStorage, String pColumName) throws DataSourceException
 	{
-		setColumnNames(pStorage, pColumName, null, null);
+		setColumnLabels(pStorage, pColumName, null, null);
 	}
 	
 	/**
