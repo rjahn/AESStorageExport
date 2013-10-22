@@ -90,7 +90,7 @@
 
 	<!-- buildnumber -->
     <taskdef name="buildnr" classname="com.sibvisions.addons.ant.AntBuildNumber" classpath="${buildnumber}/addons.jar" />
-    <buildnr buildfile="${buildnumber}/buildnr.properties" version="1.1.1" name="AES Storage Export"/> 
+    <buildnr buildfile="${buildnumber}/buildnr.properties" version="1.2" name="AES Storage Export"/> 
     
     <!-- create the jar file -->
     <jar jarfile="${install}/${jar.name}" basedir="${classes}">

@@ -18,6 +18,7 @@
  *
  * 27.08.2013 - [JR] - creation
  * 12.09.2013 - [JR] - use sort of entry
+ * 22.10.2013 - [JR] - jvx lib update
  */
 package com.sibvisions.util.zip.aes;
 
@@ -36,7 +37,7 @@ import net.lingala.zip4j.io.ZipOutputStream;
 import net.lingala.zip4j.model.ZipParameters;
 import net.lingala.zip4j.util.Zip4jConstants;
 
-import com.sibvisions.rad.model.DataBookUtil;
+import com.sibvisions.rad.model.DataBookCSVExporter;
 import com.sibvisions.rad.persist.AbstractStorage;
 import com.sibvisions.util.ArrayUtil;
 import com.sibvisions.util.type.StringUtil;
@@ -286,7 +287,7 @@ public class StorageExport
 								
 								if (iColumnNameIndex[j] >= 0)
 								{
-									DataBookUtil.writeQuoted(oswStream, dataType[j], oData[iColumnNameIndex[j]], sSeparator);
+									DataBookCSVExporter.writeQuoted(oswStream, dataType[j], oData[iColumnNameIndex[j]], sSeparator);
 								}
 							}		
 							
