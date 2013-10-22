@@ -39,6 +39,7 @@ import net.lingala.zip4j.util.Zip4jConstants;
 import com.sibvisions.rad.model.DataBookUtil;
 import com.sibvisions.rad.persist.AbstractStorage;
 import com.sibvisions.util.ArrayUtil;
+import com.sibvisions.util.type.StringUtil;
 
 /**
  * The <code>StorageExport</code> exports data of {@link AbstractStorage}s.
@@ -171,7 +172,10 @@ public class StorageExport
 			
 			List<Object[]> lResult;
 			
+			String sLabel;
+
 			String[] sEntryColumnNames;
+			String[] sEntryColumnLabels;
 			Object[] oData;
 	
 			OutputStreamWriter oswStream;
@@ -201,6 +205,13 @@ public class StorageExport
 				{
 					sEntryColumnNames = mdata.getColumnNames();
 				}
+
+				sEntryColumnLabels = entry.getColumnLabels();
+				
+				if (sEntryColumnLabels == null)
+				{
+					sEntryColumnLabels = null;
+				}				
 				
 				iColumnNameIndex = new int[sEntryColumnNames.length];
 				
@@ -231,7 +242,22 @@ public class StorageExport
 							oswStream.write(sSeparator);
 						}
 						
-						oswStream.write(ColumnMetaData.getDefaultLabel(sEntryColumnNames[i]));
+						if (sEntryColumnLabels != null && sEntryColumnLabels.length > i)
+						{
+							sLabel = sEntryColumnLabels[i];
+						}
+						else
+						{
+							sLabel = null;
+						}
+						
+						
+						if (StringUtil.isEmpty(sLabel))
+						{
+							sLabel = ColumnMetaData.getDefaultLabel(sEntryColumnNames[i]);
+						}
+						
+						oswStream.write(sLabel);
 					}
 
 					oswStream.write("\n");

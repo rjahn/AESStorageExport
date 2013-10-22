@@ -59,6 +59,9 @@ public class StorageEntry
 	/** the columns to use. */
 	private String[] saColumns;
 
+	/** the column labels to use. */
+	private String[] saLabels;
+	
 	/** whether to show column names as first record. */
 	private boolean bShowColumnNames = false;
 	
@@ -212,6 +215,91 @@ public class StorageEntry
 	public String[] getColumnNames()
 	{
 		return saColumns;
+	}
+	
+	/**
+	 * Sets the column labels.
+	 * 
+	 * @param pColumnNames the column labels
+	 */
+	public void setColumnLabels(String...pColumnLabels)
+	{
+		saLabels = pColumnLabels;
+	}
+
+	/**
+	 * Sets the column labels.
+	 * 
+	 * @param pColumnNames the column labels
+	 */
+	public void setColumnLabels(List<String> pColumnLabels)
+	{
+		if (pColumnLabels != null && !pColumnLabels.isEmpty())
+		{
+			saLabels = new String[pColumnLabels.size()];
+			pColumnLabels.toArray(saLabels);
+		}
+		else
+		{
+			saLabels = null;
+		}
+	}
+	
+	/**
+	 * Sets the column labels fetched via storage.
+	 * 
+	 * @param pStorage the storage that contains column labels
+	 * @param pColumName the column that contains the column label
+	 * @throws DataSourceException if fetching data fails
+	 */
+	public void setColumnLabels(AbstractStorage pStorage, String pColumName) throws DataSourceException
+	{
+		setColumnNames(pStorage, pColumName, null, null);
+	}
+	
+	/**
+	 * Sets the column labels fetched via storage.
+	 * 
+	 * @param pStorage the storage that contains column labels
+	 * @param pCondition the fetch condition
+	 * @param pSort the sort definition
+	 * @param pColumName the column that contains the column label
+	 * @throws DataSourceException if fetching data fails
+	 */
+	public void setColumnLabels(AbstractStorage pStorage, String pColumName, ICondition pCondition, SortDefinition pSort) throws DataSourceException
+	{
+		List<IBean> pBeans = pStorage.fetchBean(pCondition, pSort, 0, -1); 
+				
+		ArrayUtil<String> auLabels = new ArrayUtil<String>();
+		
+		String sValue;
+		
+		for (IBean bean : pBeans)
+		{
+			sValue = (String)bean.get(pColumName);
+			
+			if (!StringUtil.isEmpty(sValue))
+			{
+				auLabels.add(sValue);
+			}
+		}
+		
+		if (!auLabels.isEmpty())
+		{
+			saLabels = new String[auLabels.size()];
+			
+			auLabels.toArray(saLabels);
+		}
+	}
+	
+	/**
+	 * Gets the column labels which should be used for retrieving data from the storage.
+	 * 
+	 * @return the column names
+	 */
+	public String[] getColumnLabels()
+	{
+		return saLabels;
 	}
 	
 	/**

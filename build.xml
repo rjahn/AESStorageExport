@@ -90,7 +90,7 @@
 
 	<!-- buildnumber -->
     <taskdef name="buildnr" classname="com.sibvisions.addons.ant.AntBuildNumber" classpath="${buildnumber}/addons.jar" />
-    <buildnr buildfile="${buildnumber}/buildnr.properties" version="1.0" name="AES Storage Export"/> 
+    <buildnr buildfile="${buildnumber}/buildnr.properties" version="1.1" name="AES Storage Export"/> 
     
     <!-- create the jar file -->
     <jar jarfile="${install}/${jar.name}" basedir="${classes}">
@@ -109,6 +109,6 @@
   	***************************************************************** 
   	-->
 
-  <target name="start.complete" depends="clean.start, build, clean.stop" />
+  <target name="start.complete" depends="clean.start, build, clean.stop" description="Creates release library"/>
 
 </project>
