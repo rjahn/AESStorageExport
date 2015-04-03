@@ -226,7 +226,7 @@ public class StorageExport
 	
 					if (idx >= 0)
 					{
-						dataType[i] = ColumnMetaData.createDataType(cmdata[idx]);
+						dataType[i] = cmdata[idx].createDataType();
 					}
 				}
 				
