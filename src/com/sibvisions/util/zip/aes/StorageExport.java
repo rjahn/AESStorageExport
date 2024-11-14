@@ -27,9 +27,9 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.List;
 
-import javax.rad.model.datatype.IDataType;
-import javax.rad.persist.ColumnMetaData;
-import javax.rad.persist.MetaData;
+import jvx.rad.model.datatype.IDataType;
+import jvx.rad.persist.ColumnMetaData;
+import jvx.rad.persist.MetaData;
 
 import net.lingala.zip4j.exception.ZipException;
 import net.lingala.zip4j.io.StaticEntry;

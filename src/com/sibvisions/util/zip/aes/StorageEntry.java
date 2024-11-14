@@ -24,10 +24,10 @@ package com.sibvisions.util.zip.aes;
 
 import java.util.List;
 
-import javax.rad.model.SortDefinition;
-import javax.rad.model.condition.ICondition;
-import javax.rad.persist.DataSourceException;
-import javax.rad.type.bean.IBean;
+import jvx.rad.model.SortDefinition;
+import jvx.rad.model.condition.ICondition;
+import jvx.rad.persist.DataSourceException;
+import jvx.rad.type.bean.IBean;
 
 import com.sibvisions.rad.persist.AbstractStorage;
 import com.sibvisions.util.ArrayUtil;

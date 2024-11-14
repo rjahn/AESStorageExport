@@ -8,18 +8,6 @@ package com.sibvisions.util.zip.aes;
 import java.io.File;
 import java.math.BigDecimal;
 
-import javax.rad.io.RemoteFileHandle;
-import javax.rad.model.ColumnDefinition;
-import javax.rad.model.ColumnView;
-import javax.rad.model.ModelException;
-import javax.rad.model.RowDefinition;
-import javax.rad.model.condition.GreaterEquals;
-import javax.rad.model.condition.ICondition;
-import javax.rad.model.condition.LessEquals;
-import javax.rad.model.datatype.BigDecimalDataType;
-import javax.rad.model.datatype.TimestampDataType;
-import javax.rad.model.event.DataBookEvent;
-
 import org.junit.Test;
 
 import com.sibvisions.rad.model.mem.MemDataBook;
@@ -27,6 +15,18 @@ import com.sibvisions.rad.persist.AbstractMemStorage;
 import com.sibvisions.rad.persist.AbstractStorage;
 import com.sibvisions.util.type.DateUtil;
 import com.sibvisions.util.type.FileUtil;
+
+import jvx.rad.io.RemoteFileHandle;
+import jvx.rad.model.ColumnDefinition;
+import jvx.rad.model.ColumnView;
+import jvx.rad.model.ModelException;
+import jvx.rad.model.RowDefinition;
+import jvx.rad.model.condition.GreaterEquals;
+import jvx.rad.model.condition.ICondition;
+import jvx.rad.model.condition.LessEquals;
+import jvx.rad.model.datatype.BigDecimalDataType;
+import jvx.rad.model.datatype.TimestampDataType;
+import jvx.rad.model.event.DataBookEvent;
 
 /**
  * Tests the functionality of <code>StorageExportTest</code>
@@ -93,7 +93,7 @@ public class StorageExportTest
 		{
 			amsLoggings.getDataBook().insert(false);
 			amsLoggings.getDataBook().setValues(new String[] {"ID", "TEXT", "DATE", "VALUE"}, 
-					                            new Object[] {BigDecimal.valueOf(i), "Text (" + i + ")", DateUtil.getDate(10, 04, 1950 + i, 10, 00, 45), BigDecimal.valueOf(j)});
+					                            new Object[] {BigDecimal.valueOf(i), "Text (" + i + ")", DateUtil.getTimestamp(10, 04, 1950 + i, 10, 00, 45), BigDecimal.valueOf(j)});
 		}
 		
 		amsLoggings.getDataBook().saveAllRows();
